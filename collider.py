@@ -34,14 +34,13 @@ class Collider:
 
         entity.reparent_to(self.np)
     
-    def set_ccd_motion_threshold(self, value):
-        self.node.setCcdMotionThreshold(value)
+    @property
+    def active(self):
+        return self.node.active
     
-    def set_ccd_swept_sphere_radius(self, value):
-        self.node.setCcdSweptSphereRadius(value)
-    
-    def set_collide_mask(self, mask):
-        self.np.setCollideMask(mask)
+    @active.setter
+    def active(self, value):
+        self.node.active = value
     
     @property
     def angular_damping(self):
@@ -72,9 +71,93 @@ class Collider:
         return self.node.getAngularVelocity()
     
     @angular_velocity.setter
-    def angularVelocity(self, value):
+    def angular_velocity(self, value):
         self.node.setAngularVelocity(value)
     
+    @property
+    def anisotropic_friction(self):
+        return self.node.anisotropic_friction
+    
+    @anisotropic_friction.setter
+    def anisotropic_friction(self, value):
+        self.node.setAnisotropicFriction(value)
+    
+    @property
+    def ccd_motion_threshold(self):
+        return self.node.ccd_motion_threshold
+    
+    @ccd_motion_threshold.setter
+    def ccd_motion_threshold(self, value):
+        self.node.setCcdMotionThreshold(value)
+    
+    @property
+    def ccd_swept_sphere_radius(self):
+        return self.node.ccd_swept_sphere_radius
+    
+    @ccd_swept_sphere_radius.setter
+    def ccd_swept_sphere_radius(self, value):
+        self.node.setCcdSweptSphereRadius(value)
+
+    @property
+    def collision_notification(self):
+        return self.node.collision_notification
+    
+    @collision_notification.setter
+    def collision_notification(self, value):
+        self.node.notifyCollisions(value)
+    
+    @property
+    def collision_response(self):
+        return self.node.collision_response
+    
+    @collision_response.setter
+    def collision_response(self, value):
+        self.node.setCollisionResponse(value)
+    
+    @property
+    def contact_processing_threshold(self):
+        return self.node.contact_processing_threshold
+    
+    @contact_processing_threshold.setter
+    def contact_processing_threshold(self, value):
+        self.node.contact_processing_threshold = value
+    
+    @property
+    def contact_response(self):
+        return self.node.contact_response
+    
+    @property
+    def deactivation_enabled(self):
+        return self.node.deactivation_enabled
+    
+    @deactivation_enabled.setter
+    def deactivation_enabled(self, value):
+        self.node.deactivation_enabled = value
+    
+    @property
+    def deactivation_time(self):
+        return self.node.deactivation_time
+    
+    @deactivation_time.setter
+    def deactivation_time(self, value):
+        self.node.setDeactivationTime(value)
+    
+    @property
+    def debug_enabled(self):
+        return self.node.debug_enabled
+    
+    @debug_enabled.setter
+    def debug_enabled(self, value):
+        self.node.debug_enabled = value
+    
+    @property
+    def friction(self):
+        return self.node.friction
+    
+    @friction.setter
+    def friction(self, value):
+        self.node.setFriction(value)
+
     @property
     def gravity(self):
         return self.node.getGravity()
@@ -90,6 +173,34 @@ class Collider:
     @inertia.setter
     def inertia(self, value):
         self.node.setInertia(value)
+    
+    @property
+    def inv_inertia_diag_local(self):
+        return self.node.inv_inertia_diag_local
+    
+    @property
+    def inv_inertia_tensor_world(self):
+        return self.node.inv_inertia_tensor_world
+    
+    @property
+    def inv_mass(self):
+        return self.node.inv_mass
+    
+    @property
+    def kinematic(self):
+        return self.node.kinematic
+    
+    @kinematic.setter
+    def kinematic(self, value):
+        self.node.setKinematic(value)
+    
+    @property
+    def restitution(self):
+        return self.node.restitution
+    
+    @restitution.setter
+    def restitution(self, value):
+        self.node.restitution = value
     
     @property
     def linear_damping(self):
@@ -132,16 +243,36 @@ class Collider:
         return self.node.setMass(value)
     
     @property
-    def inv_inertia_diag_local(self):
-        return self.node.inv_inertia_diag_local
+    def num_shapes(self):
+        return self.node.getNumShapes()
     
     @property
-    def inv_inertia_tensor_world(self):
-        return self.node.inv_inertia_tensor_world
+    def shape_bounds(self):
+        return self.node.shape_bounds
     
     @property
-    def inv_mass(self):
-        return self.node.inv_mass
+    def shape_mat(self):
+        return self.node.shape_mat
+    
+    @property
+    def shape_pos(self):
+        return self.node.shape_pos
+    
+    @property
+    def shape_transform(self):
+        return self.node.shape_transform
+    
+    @property
+    def shapes(self):
+        return self.node.shapes
+    
+    @property
+    def static(self):
+        return self.node.static
+    
+    @static.setter
+    def static(self, value):
+        self.node.static = value
     
     @property
     def total_force(self):
@@ -169,11 +300,26 @@ class Collider:
     def apply_torque_impulse(self, torque):
         self.node.applyTorqueImpulse(torque)
     
+    def check_collision_with(self, entity:Entity):
+        return self.node.checkCollisionWith(entity)
+    
     def clear_forces(self):
         self.node.clearForces()
     
+    def force_active(self, active: bool):
+        self.node.forceActive(active)
+    
     def pick_dirty_flag(self):
         return self.node.pickDirtyFlag()
+    
+    def set_active(self, active: bool, force: bool):
+        self.node.setActive(active, force)
+    
+    def set_collide_mask(self, mask):
+        self.np.setCollideMask(mask)
+    
+    def set_into_collide_mask(self, mask):
+        self.node.setIntoCollideMask(mask)
 
 class SphereCollider(Collider):
     def __init__(
