@@ -2,7 +2,7 @@ from statistics import mean
 from ursina import Ursina, Entity, Vec3, Cylinder
 from panda3d.bullet import (
     BulletRigidBodyNode, BulletGhostNode, BulletSphereShape, BulletBoxShape, BulletCylinderShape,
-    BulletCapsuleShape, BulletTriangleMeshShape, BulletTriangleMesh
+    BulletCapsuleShape, BulletConvexHullShape, BulletTriangleMeshShape, BulletTriangleMesh
     )
 
 class Collider:
@@ -228,7 +228,7 @@ class CapsuleCollider(Collider):
         ):
         super().__init__(world, entity, BulletCapsuleShape(radius, height, 1), 'capsule', rotation, mass, ghost)
 
-class MeshCollider(Collider):
+class ConvexHullCollider(Collider):
     def __init__(
         self, world:Ursina, entity:Entity,
         rotation=[None, None, None], mass=0, ghost=False
@@ -237,9 +237,24 @@ class MeshCollider(Collider):
         geomNodes = entity.model.findAllMatches('**/+GeomNode')
         geomNode = geomNodes.getPath(0).node()
         geom = geomNode.getGeom(0)
+        shape = BulletConvexHullShape()
+        shape.addGeom(geom)
+
+        super().__init__(world, entity, shape, 'convex_hull', rotation, mass, ghost)
+
+class MeshCollider(Collider):
+    def __init__(
+        self, world:Ursina, entity:Entity,
+        rotation=[None, None, None], dynamic=False,
+        mass=0, ghost=False
+        ):
+
+        geomNodes = entity.model.findAllMatches('**/+GeomNode')
+        geomNode = geomNodes.getPath(0).node()
+        geom = geomNode.getGeom(0)
         mesh = BulletTriangleMesh()
         mesh.addGeom(geom)
 
-        shape = BulletTriangleMeshShape(mesh, dynamic=False)
+        shape = BulletTriangleMeshShape(mesh, dynamic=dynamic)
 
         super().__init__(world, entity, shape, 'mesh', rotation, mass, ghost)
