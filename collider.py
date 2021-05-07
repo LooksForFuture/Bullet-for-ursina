@@ -1,7 +1,8 @@
 from statistics import mean
 from ursina import Ursina, Entity, Vec3, Cylinder
 from panda3d.bullet import (
-    BulletRigidBodyNode, BulletGhostNode, BulletSphereShape, BulletBoxShape, BulletCylinderShape
+    BulletRigidBodyNode, BulletGhostNode, BulletSphereShape, BulletBoxShape, BulletCylinderShape,
+    BulletCapsuleShape, BulletTriangleMeshShape, BulletTriangleMesh
     )
 
 class Collider:
@@ -33,13 +34,13 @@ class Collider:
 
         entity.reparent_to(self.np)
     
-    def setCcdMotionThreshold(self, value):
+    def set_ccd_motion_threshold(self, value):
         self.node.setCcdMotionThreshold(value)
     
-    def setCcdSweptSphereRadius(self, value):
+    def set_ccd_swept_sphere_radius(self, value):
         self.node.setCcdSweptSphereRadius(value)
     
-    def setCollideMask(self, mask):
+    def set_collide_mask(self, mask):
         self.np.setCollideMask(mask)
     
     @property
@@ -218,3 +219,27 @@ class CylinderCollider(Collider):
                 radius=.5
                 height=1
         super().__init__(world, entity, BulletCylinderShape(radius, height, 1), 'cylinder', rotation, mass, ghost)
+
+class CapsuleCollider(Collider):
+    def __init__(
+        self, world:Ursina, entity:Entity,
+        rotation=[None, None, None], radius=0.5, height=0.5,
+        mass=0, ghost=False
+        ):
+        super().__init__(world, entity, BulletCapsuleShape(radius, height, 1), 'capsule', rotation, mass, ghost)
+
+class MeshCollider(Collider):
+    def __init__(
+        self, world:Ursina, entity:Entity,
+        rotation=[None, None, None], mass=0, ghost=False
+        ):
+
+        geomNodes = entity.model.findAllMatches('**/+GeomNode')
+        geomNode = geomNodes.getPath(0).node()
+        geom = geomNode.getGeom(0)
+        mesh = BulletTriangleMesh()
+        mesh.addGeom(geom)
+
+        shape = BulletTriangleMeshShape(mesh, dynamic=False)
+
+        super().__init__(world, entity, shape, 'mesh', rotation, mass, ghost)
