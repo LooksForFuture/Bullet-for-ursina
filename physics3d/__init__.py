@@ -93,7 +93,7 @@ class Collider:
     @rotation_x.setter
     def rotation_x(self, val:float):
         rot = self.rotation
-        self.np.setPos(val, rot[1], rot[2])
+        self.np.setHpr(val, rot[1], rot[2])
     
     @property
     def rotation_y(self):
@@ -102,7 +102,7 @@ class Collider:
     @rotation_y.setter
     def rotation_y(self, val:float):
         rot = self.rotation
-        self.np.setPos(rot[0], val, rot[2])
+        self.np.setHpr(rot[0], val, rot[2])
     
     @property
     def rotation_z(self):
@@ -111,7 +111,7 @@ class Collider:
     @rotation_z.setter
     def rotation_z(self, val:float):
         rot = self.rotation
-        self.np.setPos(rot[0], rot[1], val)
+        self.np.setHpr(rot[0], rot[1], val)
     
     @property
     def scale(self):
@@ -132,7 +132,7 @@ class Collider:
     @scale_x.setter
     def scale_x(self, val:float):
         scale = self.scale
-        self.np.setPos(val, scale[1], scale[2])
+        self.np.setScale(val, scale[1], scale[2])
     
     @property
     def scale_y(self):
@@ -141,7 +141,7 @@ class Collider:
     @scale_y.setter
     def scale_y(self, val:float):
         scale = self.scale
-        self.np.setPos(scale[0], val, scale[2])
+        self.np.setScale(scale[0], val, scale[2])
     
     @property
     def scale_z(self):
@@ -150,7 +150,7 @@ class Collider:
     @scale_z.setter
     def scale_z(self, val:float):
         scale = self.scale
-        self.np.setPos(scale[0], scale[1], val)
+        self.np.setScale(scale[0], scale[1], val)
     
     @property
     def active(self):
