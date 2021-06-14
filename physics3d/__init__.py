@@ -36,6 +36,123 @@ class Collider:
         entity.reparent_to(self.np)
     
     @property
+    def position(self):
+        return self.np.getPos()
+    
+    @position.setter
+    def position(self, val:list):
+        if type(val) == Vec3:
+            self.np.setPos(val.x, val.y, val.z)
+        
+        else:
+            self.np.setPos(val[0], val[1], val[2])
+    
+    @property
+    def position_x(self):
+        return self.np.getPos()[0]
+    
+    @position_x.setter
+    def position_x(self, val:float):
+        pos = self.position
+        self.np.setPos(val, pos[1], pos[2])
+    
+    @property
+    def position_y(self):
+        return self.np.getPos()[1]
+    
+    @position_y.setter
+    def position_y(self, val:float):
+        pos = self.position
+        self.np.setPos(pos[0], val, pos[2])
+    
+    @property
+    def position_z(self):
+        return self.np.getPos()[2]
+    
+    @position_z.setter
+    def position_z(self, val:float):
+        pos = self.position
+        self.np.setPos(pos[0], pos[1], val)
+    
+    @property
+    def rotation(self):
+        return self.np.getHpr()
+    
+    @rotation.setter
+    def rotation(self, val:list):
+        if type(val) == Vec3:
+            self.np.setHpr(val.x, val.y, val.z)
+        
+        else:
+            self.np.setHpr(val[0], val[1], val[2])
+    
+    @property
+    def rotation_x(self):
+        return self.np.getHpr()[0]
+    
+    @rotation_x.setter
+    def rotation_x(self, val:float):
+        rot = self.rotation
+        self.np.setPos(val, rot[1], rot[2])
+    
+    @property
+    def rotation_y(self):
+        return self.np.getHpr()[1]
+    
+    @rotation_y.setter
+    def rotation_y(self, val:float):
+        rot = self.rotation
+        self.np.setPos(rot[0], val, rot[2])
+    
+    @property
+    def rotation_z(self):
+        return self.np.getHpr()[2]
+    
+    @rotation_z.setter
+    def rotation_z(self, val:float):
+        rot = self.rotation
+        self.np.setPos(rot[0], rot[1], val)
+    
+    @property
+    def scale(self):
+        return self.np.getScale()
+    
+    @scale.setter
+    def scale(self, val:list):
+        if type(val) == Vec3:
+            self.np.setScale(val.x, val.y, val.z)
+        
+        else:
+            self.np.setScale(val[0], val[1], val[2])
+    
+    @property
+    def scale_x(self):
+        return self.np.getScale()[0]
+    
+    @scale_x.setter
+    def scale_x(self, val:float):
+        scale = self.scale
+        self.np.setPos(val, scale[1], scale[2])
+    
+    @property
+    def scale_y(self):
+        return self.np.getScale()[1]
+    
+    @scale_y.setter
+    def scale_y(self, val:float):
+        scale = self.scale
+        self.np.setPos(scale[0], val, scale[2])
+    
+    @property
+    def scale_z(self):
+        return self.np.getScale()[2]
+    
+    @scale_z.setter
+    def scale_z(self, val:float):
+        scale = self.scale
+        self.np.setPos(scale[0], scale[1], val)
+    
+    @property
     def active(self):
         return self.node.active
     
