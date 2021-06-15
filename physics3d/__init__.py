@@ -48,29 +48,29 @@ class Collider:
             self.np.setPos(val[0], val[1], val[2])
     
     @property
-    def position_x(self):
+    def x(self):
         return self.np.getPos()[0]
     
-    @position_x.setter
-    def position_x(self, val:float):
+    @x.setter
+    def x(self, val:float):
         pos = self.position
         self.np.setPos(val, pos[1], pos[2])
     
     @property
-    def position_y(self):
+    def y(self):
         return self.np.getPos()[1]
     
-    @position_y.setter
-    def position_y(self, val:float):
+    @y.setter
+    def y(self, val:float):
         pos = self.position
         self.np.setPos(pos[0], val, pos[2])
     
     @property
-    def position_z(self):
+    def z(self):
         return self.np.getPos()[2]
     
-    @position_z.setter
-    def position_z(self, val:float):
+    @z.setter
+    def z(self, val:float):
         pos = self.position
         self.np.setPos(pos[0], pos[1], val)
     
@@ -453,7 +453,7 @@ class SphereCollider(Collider):
         if scale == None:
             model = str(entity.model).split('/')[-1]
             if model == 'sphere':
-                scale = entity.scale_x
+                scale = entity.scale_x/2
             else:
                 scale = 0.5
 
