@@ -1,6 +1,6 @@
 # Bullet-for-ursina
 Bullet physics for ursina engine<br />
-This library adds bullet physicsa to Ursina and is really easy to use.<br />
+This library adds bullet physics to Ursina and is really easy to use.<br />
 ```python
 from ursina import Ursina, Entity, Vec3, color, time
 from physics3d import Debugger, BoxCollider, MeshCollider
