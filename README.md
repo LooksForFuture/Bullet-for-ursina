@@ -1,7 +1,6 @@
 # Bullet-for-ursina
 Bullet physics for ursina engine<br />
 This library adds bullet physicsa to Ursina and is really easy to use.<br />
-<br />
 ```python
 from ursina import Ursina, Entity, Vec3, color, time
 from physics3d import Debugger, BoxCollider, MeshCollider
@@ -24,9 +23,8 @@ def update():
 app.run()
 ```
 This library has some colliders and a debugger class to show you the colliders and you can configure it to show you what you want.<br />
-##Character controller
+<h2>Character controller</h2>
 Also this library has a character controller which you can customize to make any game<br />
-<br />
 ```python
 from ursina import Ursina, Entity, Vec3, color, time, camera, held_keys
 from ursina.physics3d import Debugger, BoxCollider
