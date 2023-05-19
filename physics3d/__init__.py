@@ -172,8 +172,11 @@ class PlaneCollider(Collider):
 class BoxCollider(Collider):
     def __init__(
         self, world:BulletWorld, entity:Entity, mass=0,
-        rotation=[None, None, None], scale=[None, None, None]
+        rotation=[None, None, None], scale=None
         ) -> None:
+        
+        if scale is None:
+            scale = [None, None, None]
         
         if None in scale:
             for x in range(len(entity.scale)):
